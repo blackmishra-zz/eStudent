@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
 from rest_framework import generics, permissions
 from .serializers import (
     userSerializers,
@@ -18,6 +19,10 @@ def login(request):
     return render(request, "accounts/login")
 
 
+def logout(request):
+    return render(request, "accounts/logout")
+
+
 @login_required
 def profile(request):
     user = request.user
@@ -25,15 +30,11 @@ def profile(request):
     return render(request, "account/profile.html", {"user": user})
 
 
-def profile_update(request):
-    pass
-
-
 class CourseList(generics.ListCreateAPIView):
-
     serializer_class = CourseSerializers
 
-    def get_queryset(request):
+    def get_queryset(self):
+
         return Course.objects.all()
 
     def perform_create(self, serializer):
