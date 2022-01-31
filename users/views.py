@@ -91,3 +91,14 @@ class WishListOptions(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         id = self.kwargs.get(self.lookup_url_kwarg)
         return WishlistModel.objects.filter(id=id)
+    
+
+class ZoomUrlRedirect(APIView):
+    """Receives User access token after successful zoom authentication."""
+
+    # permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        access_token = request.data.get("access_token")
+        print(access_token)
+        return Response(access_token, status=status.HTTP_200_OK)
