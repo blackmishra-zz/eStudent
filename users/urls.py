@@ -17,7 +17,6 @@ urlpatterns = [
     ),
     path("wishlist/", login_required(views.WishList.as_view())),
     path("zoom/callback/", views.ZoomUrlRedirect.as_view(),
-    ZoomUrlRedirect
     path(
         "wishlistoptions/<int:wish_id>/",
         login_required(views.WishListOptions.as_view()),
